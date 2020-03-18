@@ -1,6 +1,6 @@
 <template>
   <div class="card col-sm-3 m-3">
-    <div class="card-header">{{stock.name}}(price: {{stock.value}})</div>
+    <div class="card-header">{{stock.name}}(price: {{stock.value}}) quantity: {{stock.quantity}}</div>
     <div class="card-body">
       <div class="input-group mb-3">
         <input
@@ -16,9 +16,9 @@
             class="btn btn-success"
             type="button"
             id="button-addon2"
-            @click="buyStock"
+            @click="sellStock"
             :disabled="quantity <= 0"
-          >Buy</button>
+          >Sell</button>
         </div>
       </div>
     </div>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "Stock",
   props: ["stock"],
@@ -35,14 +36,14 @@ export default {
     };
   },
   methods: {
-    buyStock() {
+    ...mapActions(["sellStock"]),
+    sellStock() {
       const order = {
-        stockId: this.stock.id,
-        stockValue: this.stock.value,
-        stockQuantity: this.quantity
+        id: this.stock.id,
+        value: this.stock.value,
+        quantity: this.quantity
       };
-      this.$store.dispatch("buyStock", order);
-      this.quantity = 0;
+      this.sellStock(order);
     }
   }
 };
