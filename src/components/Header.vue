@@ -32,7 +32,7 @@
           >Save&Load</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="#" @click="saveData">Save</a>
-            <a class="dropdown-item" href="#">Load</a>
+            <a class="dropdown-item" href="#" @click="loadData">Load</a>
           </div>
         </li>
       </ul>
@@ -53,7 +53,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["randomizeStocks"]),
+    ...mapActions({
+      randomizeStocks: "randomizeStocks",
+      fetchData: "loadData"
+    }),
     endDay() {
       this.randomizeStocks();
     },
@@ -64,6 +67,9 @@ export default {
         stocks: this.$store.getters.stocks
       };
       this.$http.put("data.json", data);
+    },
+    loadData() {
+      this.fetchData();
     }
   }
 };
