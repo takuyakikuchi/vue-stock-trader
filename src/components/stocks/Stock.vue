@@ -10,6 +10,7 @@
           aria-label="Quantity"
           aria-describedby="button-addon2"
           v-model="quantity"
+          :class="{'red-border': insufficientFunds}"
         />
         <div class="input-group-append">
           <button
@@ -17,7 +18,7 @@
             type="button"
             id="button-addon2"
             @click="buyStock"
-            :disabled="quantity <= 0"
+            :disabled="quantity <= 0 || insufficientFunds"
           >Buy</button>
         </div>
       </div>
@@ -34,6 +35,14 @@ export default {
       quantity: 0
     };
   },
+  computed: {
+    funds() {
+      return this.$store.getters.funds;
+    },
+    insufficientFunds() {
+      return this.stock.value * this.quantity > this.funds;
+    }
+  },
   methods: {
     buyStock() {
       const order = {
@@ -48,5 +57,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.red-border {
+  border: 3px solid rgb(255, 126, 126);
+}
 </style>

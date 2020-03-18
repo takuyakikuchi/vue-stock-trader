@@ -10,6 +10,7 @@
           aria-label="Quantity"
           aria-describedby="button-addon2"
           v-model="quantity"
+          :class="{'red-border': insufficientQuantity}"
         />
         <div class="input-group-append">
           <button
@@ -17,7 +18,7 @@
             type="button"
             id="button-addon2"
             @click="sellStock"
-            :disabled="quantity <= 0"
+            :disabled="quantity <= 0 || insufficientQuantity"
           >Sell</button>
         </div>
       </div>
@@ -34,6 +35,11 @@ export default {
     return {
       quantity: 0
     };
+  },
+  computed: {
+    insufficientQuantity() {
+      return this.quantity > this.stock.quantity;
+    }
   },
   methods: {
     ...mapActions({
@@ -53,4 +59,7 @@ export default {
 </script>
 
 <style>
+.red-border {
+  border: 3px solid rgb(255, 126, 126);
+}
 </style>

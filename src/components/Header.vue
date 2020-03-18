@@ -36,7 +36,7 @@
           </div>
         </li>
       </ul>
-      <strong class="text-light mr-3">Funds: {{funds}}</strong>
+      <strong class="text-light mr-3">Funds: {{funds | currency}}</strong>
       <button class="btn btn-secondary">End day</button>
     </div>
   </nav>
