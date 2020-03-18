@@ -31,7 +31,7 @@
             aria-expanded="false"
           >Save&Load</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Save</a>
+            <a class="dropdown-item" href="#" @click="saveData">Save</a>
             <a class="dropdown-item" href="#">Load</a>
           </div>
         </li>
@@ -56,6 +56,14 @@ export default {
     ...mapActions(["randomizeStocks"]),
     endDay() {
       this.randomizeStocks();
+    },
+    saveData() {
+      const data = {
+        funds: this.$store.getters.funds,
+        stockPortfolio: this.$store.getters.stockPortfolio,
+        stocks: this.$store.getters.stocks
+      };
+      this.$http.put("data.json", data);
     }
   }
 };
