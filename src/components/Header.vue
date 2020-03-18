@@ -37,17 +37,25 @@
         </li>
       </ul>
       <strong class="text-light mr-3">Funds: {{funds | currency}}</strong>
-      <button class="btn btn-secondary">End day</button>
+      <button class="btn btn-secondary" @click="endDay">End day</button>
     </div>
   </nav>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "Header",
   computed: {
     funds() {
       return this.$store.getters.funds;
+    }
+  },
+  methods: {
+    ...mapActions(["randomizeStocks"]),
+    endDay() {
+      this.randomizeStocks();
     }
   }
 };
