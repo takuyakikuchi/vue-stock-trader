@@ -13,7 +13,7 @@
         />
         <div class="input-group-append">
           <button
-            class="btn btn-success"
+            class="btn btn-warning"
             type="button"
             id="button-addon2"
             @click="sellStock"
@@ -36,14 +36,17 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["sellStock"]),
+    ...mapActions({
+      placeSellOrder: "sellStock"
+    }),
     sellStock() {
       const order = {
         id: this.stock.id,
         value: this.stock.value,
         quantity: this.quantity
       };
-      this.sellStock(order);
+      this.placeSellOrder(order);
+      this.quantity = 0;
     }
   }
 };

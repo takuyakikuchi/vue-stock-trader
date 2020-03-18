@@ -36,14 +36,20 @@
           </div>
         </li>
       </ul>
-      <button class="btn btn-primary">End day</button>
+      <strong class="text-light mr-3">Funds: {{funds}}</strong>
+      <button class="btn btn-secondary">End day</button>
     </div>
   </nav>
 </template>
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  computed: {
+    funds() {
+      return this.$store.getters.funds;
+    }
+  }
 };
 </script>
 

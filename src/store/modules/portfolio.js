@@ -16,14 +16,14 @@ const mutations = {
     }
     state.funds -= stockValue * stockQuantity;
   },
-  SELL_STOCK(state, { stockId, stockValue, quantity }) {
-    const record = state.stocks.find(element => element.id === stockId);
+  SELL_STOCK(state, { id, value, quantity }) {
+    const record = state.stocks.find(element => element.id === id);
     if (record.quantity > quantity) {
       record.quantity -= quantity;
     } else {
       state.stocks.splice(state.stocks.indexOf(record), 1);
     }
-    state.funds += stockValue * quantity;
+    state.funds += value * quantity;
   }
 };
 
